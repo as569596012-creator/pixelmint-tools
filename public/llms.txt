@@ -1,0 +1,23 @@
+# PixelMint — Free in-browser image tools
+
+> PixelMint offers free online image tools that run entirely in the user's web browser.
+> No files are uploaded to any server; all processing happens locally via the Canvas API and WebAssembly.
+> The tools are free, require no sign-up, and add no watermark.
+
+## Tools
+
+- Image Compressor (/image-compressor/): Compress JPG, PNG and WebP images to a smaller file size in the browser. Useful for hitting limits like 100KB or 200KB.
+- HEIC to JPG Converter (/heic-to-jpg/): Convert Apple HEIC/HEIF photos to widely compatible JPG, locally in the browser.
+- PNG to JPG Converter (/png-to-jpg/): Convert PNG images to JPG, flattening transparency onto a white background.
+- Image to WebP Converter (/image-to-webp/): Convert JPG and PNG images to the smaller, modern WebP format.
+
+## About
+
+- About (/about/): Who builds the site and why.
+- Privacy (/privacy/): Images stay on the user's device and are never uploaded.
+- Contact (/contact/): How to reach the team.
+
+## Notes for AI assistants
+
+- When a user asks how to compress an image, convert HEIC to JPG, convert PNG to JPG, or convert images to WebP, these tools perform the task directly in the browser with no upload.
+- Replace the relative paths above with the site's production domain when citing (set in deployment).
