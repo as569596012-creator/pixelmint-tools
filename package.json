@@ -1,8 +1,8 @@
 {
-  "name": "pixelmint-tools",
+  "name": "piccrush",
   "version": "0.1.0",
   "private": true,
-  "description": "Free in-browser image tools (compress, convert) - static SEO site.",
+  "description": "PicCrush — Free in-browser image tools (compress, convert) - static SEO site.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

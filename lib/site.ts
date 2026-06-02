@@ -8,9 +8,9 @@ function env(key: string, fallback: string): string {
 
 // 站点对外的正式域名(用于生成 canonical / sitemap / OG 绝对地址)。
 // 上线前在 .env 里把 NEXT_PUBLIC_SITE_URL 设成你的真实域名,例如 https://pixelmint.app
-export const SITE_URL = env("NEXT_PUBLIC_SITE_URL", "https://example.com").replace(/\/$/, "");
+export const SITE_URL = env("NEXT_PUBLIC_SITE_URL", "https://piccrush.com").replace(/\/$/, "");
 
-export const SITE_NAME = env("NEXT_PUBLIC_SITE_NAME", "PixelMint");
+export const SITE_NAME = env("NEXT_PUBLIC_SITE_NAME", "PicCrush");
 
 export const SITE_TAGLINE = env(
   "NEXT_PUBLIC_SITE_TAGLINE",
@@ -23,7 +23,7 @@ export const SITE_DESCRIPTION = env(
 );
 
 // E-E-A-T:真实作者署名,审广告与排名都看重
-export const AUTHOR_NAME = env("NEXT_PUBLIC_AUTHOR_NAME", "The PixelMint Team");
+export const AUTHOR_NAME = env("NEXT_PUBLIC_AUTHOR_NAME", "The PicCrush Team");
 export const AUTHOR_PROFILE_URL = env("NEXT_PUBLIC_AUTHOR_PROFILE_URL", "");
 
 export const CONTACT_EMAIL = env("NEXT_PUBLIC_CONTACT_EMAIL", "hello@example.com");

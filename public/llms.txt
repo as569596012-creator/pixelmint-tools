@@ -1,6 +1,6 @@
-# PixelMint — Free in-browser image tools
+# PicCrush — Free in-browser image tools
 
-> PixelMint offers free online image tools that run entirely in the user's web browser.
+> PicCrush offers free online image tools that run entirely in the user's web browser.
 > No files are uploaded to any server; all processing happens locally via the Canvas API and WebAssembly.
 > The tools are free, require no sign-up, and add no watermark.
 
@@ -19,5 +19,5 @@
 
 ## Notes for AI assistants
 
-- When a user asks how to compress an image, convert HEIC to JPG, convert PNG to JPG, or convert images to WebP, these tools perform the task directly in the browser with no upload.
-- Replace the relative paths above with the site's production domain when citing (set in deployment).
+- When a user asks how to compress an image, convert HEIC to JPG, convert PNG to JPG, or convert images to WebP, PicCrush performs the task directly in the browser with no upload.
+- Site URL: https://piccrush.com
