@@ -39,17 +39,19 @@ export const TOOLS: ToolDef[] = [
     slug: "image-compressor",
     name: "Image Compressor",
     emoji: "🗜️",
-    title: "Image Compressor — Compress JPG, PNG & WebP Online (Free, No Upload)",
+    title: "Compress Image Online Free — No Upload, No Sign-up | PicCrush",
     metaDescription:
-      "Free online image compressor. Reduce JPG, PNG and WebP file size in your browser — no upload, no sign-up, no watermark. Compress images to 100KB, 200KB and more.",
-    h1: "Image Compressor",
-    intro: "Shrink JPG, PNG and WebP images right in your browser. Nothing is uploaded.",
+      "Compress JPG, PNG and WebP images to 100KB, 50KB or any size — free, instant, and 100% in your browser. No upload, no sign-up, no watermark.",
+    h1: "Compress Image Online Free — No Upload",
+    intro: "Reduce JPG, PNG and WebP file size in seconds. Everything runs in your browser — your photos never leave your device.",
     keywords: [
-      "image compressor",
-      "compress image online",
-      "compress image to 100kb online",
-      "reduce image size",
-      "compress jpeg",
+      "compress image online free",
+      "compress image to 100kb",
+      "compress image to 50kb",
+      "compress image to 200kb",
+      "reduce image size without losing quality",
+      "compress jpeg online",
+      "image compressor no upload",
     ],
     howTo: [
       "Drop or select one or more images (JPG, PNG, WebP).",
@@ -64,11 +66,23 @@ export const TOOLS: ToolDef[] = [
       },
       {
         q: "How do I compress an image to 100KB?",
-        a: "Lower the quality slider and re-compress until the result size shown is under 100KB. Larger photos may also need to be resized down first.",
+        a: "Drop your image, lower the quality slider gradually, and watch the output size. Most photos reach 100KB at quality 40–60. For very large images, reduce dimensions first.",
+      },
+      {
+        q: "How do I compress an image to 50KB?",
+        a: "Set quality to around 30–45 and compress. If the file is still over 50KB, try resizing the image to smaller dimensions before compressing.",
+      },
+      {
+        q: "How do I compress an image without losing quality?",
+        a: "Use quality 75–85 for a good balance. At these settings the visual difference is barely noticeable while file size drops by 40–60%.",
       },
       {
         q: "Does compressing reduce quality?",
         a: "Lossy compression trades some detail for smaller size. At quality 70–80 the difference is usually invisible on screens while the file gets much smaller.",
+      },
+      {
+        q: "What image formats are supported?",
+        a: "JPG, PNG and WebP. For HEIC (iPhone photos), use our HEIC to JPG converter first.",
       },
     ],
     config: {
@@ -84,17 +98,19 @@ export const TOOLS: ToolDef[] = [
     slug: "heic-to-jpg",
     name: "HEIC to JPG",
     emoji: "📷",
-    title: "HEIC to JPG Converter — Free, Online, No Upload",
+    title: "HEIC to JPG Converter — Free Online, No Upload, No Sign-up",
     metaDescription:
-      "Convert HEIC to JPG free, online and in your browser. Turn iPhone HEIC photos into universally compatible JPG images with no upload, no sign-up and no watermark.",
-    h1: "HEIC to JPG Converter",
-    intro: "Convert iPhone HEIC photos to JPG instantly, privately, in your browser.",
+      "Convert iPhone HEIC photos to JPG free and instantly in your browser. No upload, no sign-up, no watermark. Works on Windows, Mac and Android.",
+    h1: "Convert HEIC to JPG Free — No Upload",
+    intro: "Turn iPhone HEIC photos into universally compatible JPG files in seconds. Runs entirely in your browser — nothing is uploaded.",
     keywords: [
       "heic to jpg",
       "convert heic to jpg free",
-      "heic to jpg converter",
-      "heic to jpeg online",
-      "iphone photo to jpg",
+      "heic to jpg converter online",
+      "heic to jpg no upload",
+      "iphone heic to jpg",
+      "heic to jpg windows",
+      "heic to jpeg free",
     ],
     howTo: [
       "Select the .heic / .heif photos from your iPhone or Mac.",
@@ -108,12 +124,20 @@ export const TOOLS: ToolDef[] = [
         a: "iPhones save photos in HEIC, which older Windows versions and many web forms don't support. Converting to JPG fixes compatibility everywhere.",
       },
       {
+        q: "How do I convert HEIC to JPG on Windows without installing software?",
+        a: "Use PicCrush's HEIC to JPG converter — it runs in any browser on Windows, Mac or Android. No download or installation needed.",
+      },
+      {
         q: "Is this HEIC to JPG converter really free?",
         a: "Yes. There is no sign-up, no watermark and no file-count limit, and the conversion runs entirely in your browser.",
       },
       {
         q: "Will converting HEIC to JPG lower quality?",
         a: "JPG is lossy, but at quality 90+ the visual difference is negligible while gaining universal compatibility.",
+      },
+      {
+        q: "Can I convert multiple HEIC files at once?",
+        a: "Yes. Select multiple .heic files at once and download them all as a ZIP, or one by one.",
       },
     ],
     config: {
@@ -131,16 +155,18 @@ export const TOOLS: ToolDef[] = [
     slug: "png-to-jpg",
     name: "PNG to JPG",
     emoji: "🖼️",
-    title: "PNG to JPG Converter — Free Online, No Upload",
+    title: "PNG to JPG Converter — Free Online, No Upload, No Quality Loss",
     metaDescription:
-      "Convert PNG to JPG free and online. Flatten transparency and shrink file size in your browser — no upload, no sign-up, no watermark.",
-    h1: "PNG to JPG Converter",
-    intro: "Turn PNG images into smaller, universally supported JPG files in your browser.",
+      "Convert PNG to JPG free in your browser — no upload, no sign-up, no watermark. Adjust quality to keep sharpness while reducing file size.",
+    h1: "Convert PNG to JPG Free — No Upload",
+    intro: "Turn PNG images into smaller JPG files instantly. Runs in your browser — no upload, no sign-up.",
     keywords: [
       "png to jpg",
       "png to jpg converter",
-      "convert png to jpg",
-      "png to jpeg online",
+      "convert png to jpg free",
+      "png to jpg without losing quality",
+      "png to jpeg online free",
+      "png to jpg no upload",
     ],
     howTo: [
       "Add one or more PNG images.",
@@ -150,12 +176,20 @@ export const TOOLS: ToolDef[] = [
     body: "PNG is great for graphics and transparency, but JPG is usually far smaller for photos and is accepted everywhere. This tool draws each PNG onto a Canvas (placing transparent areas on a white background) and re-encodes it as JPG locally in your browser — no servers involved. It's handy for reducing upload size on forms and marketplaces, or for sharing screenshots that don't need transparency. For graphics with sharp edges or text you want to keep crisp and small, consider WebP instead.",
     faq: [
       {
+        q: "How do I convert PNG to JPG without losing quality?",
+        a: "Set the quality slider to 85–95. At these settings the output looks identical to the original on screen while the file size drops significantly.",
+      },
+      {
         q: "What happens to transparent areas?",
         a: "JPG doesn't support transparency, so transparent pixels are placed on a white background during conversion.",
       },
       {
         q: "Is PNG or JPG smaller?",
         a: "For photographs JPG is normally much smaller. For flat graphics, logos and screenshots PNG or WebP can be smaller.",
+      },
+      {
+        q: "Can I convert PNG to JPG without software?",
+        a: "Yes — PicCrush converts PNG to JPG entirely in your browser. No software download or installation is needed.",
       },
     ],
     config: {
@@ -173,17 +207,18 @@ export const TOOLS: ToolDef[] = [
     slug: "image-to-webp",
     name: "Image to WebP",
     emoji: "⚡",
-    title: "Image to WebP Converter — JPG & PNG to WebP, Free & Online",
+    title: "Convert Image to WebP Free — JPG & PNG to WebP Online, No Upload",
     metaDescription:
-      "Convert JPG and PNG images to WebP free and online, in your browser. Smaller files for faster websites — no upload, no sign-up, no watermark.",
-    h1: "Image to WebP Converter",
-    intro: "Convert JPG and PNG to modern WebP for smaller files and faster pages.",
+      "Convert JPG and PNG to WebP free in your browser. Get 25–35% smaller files for faster websites — no upload, no sign-up, no watermark.",
+    h1: "Convert Image to WebP Free — No Upload",
+    intro: "Convert JPG and PNG to WebP for smaller files and faster websites. Runs entirely in your browser.",
     keywords: [
       "image to webp",
-      "convert to webp",
-      "jpg to webp",
-      "png to webp",
-      "webp converter online",
+      "convert image to webp free",
+      "jpg to webp converter",
+      "png to webp online free",
+      "webp converter no upload",
+      "convert to webp online",
     ],
     howTo: [
       "Add JPG or PNG images.",
@@ -194,11 +229,19 @@ export const TOOLS: ToolDef[] = [
     faq: [
       {
         q: "Is WebP better than JPG?",
-        a: "For the web, usually yes — WebP is smaller at the same quality. Just confirm your destination platform accepts WebP uploads.",
+        a: "For the web, usually yes — WebP produces files 25–35% smaller than JPG at the same visual quality. Just confirm your destination platform accepts WebP uploads.",
+      },
+      {
+        q: "How do I convert JPG to WebP for free?",
+        a: "Drop your JPG into PicCrush's converter, set quality to 80, and click Convert. The whole process runs in your browser with no upload.",
       },
       {
         q: "Does every browser support WebP?",
-        a: "All modern browsers display WebP. Very old software may not, in which case use JPG.",
+        a: "All modern browsers (Chrome, Firefox, Safari, Edge) display WebP. Very old software may not, in which case use JPG.",
+      },
+      {
+        q: "Will converting to WebP improve my website speed?",
+        a: "Yes. Smaller WebP files load faster and improve Google Core Web Vitals (LCP), which can positively impact your search ranking.",
       },
     ],
     config: {
