@@ -1,0 +1,32 @@
+---
+description: PicCrush project overview, stack, and how to add a tool
+alwaysApply: true
+---
+
+# PicCrush(本项目)
+
+免费、纯浏览器端的**图片工具站**。文件不上传服务器(隐私卖点)。
+
+- 工具:图片压缩、HEIC→JPG、PNG→JPG、图片→WebP。
+- 域名:`piccrush.com`(Cloudflare Pages 部署)。
+- GitHub 仓库:`as569596012-creator/pixelmint-tools`(分支 `main`,push 自动部署)。
+- 本地目录:`c:\codes\tt`。
+
+## 技术栈
+- Next.js (App Router) + TypeScript + TailwindCSS,`output: 'export'` 纯静态。
+- 图片处理全部在客户端:Canvas API + `heic2any`(HEIC 解码)+ `browser-image-compression`(压缩)。
+- Tailwind 主色 token 名为 `mint`(绿色)。
+
+## 关键文件
+- [lib/tools.ts](lib/tools.ts):工具注册表 `TOOLS`(文案/FAQ/`config`)。新增工具改这里。
+- [components/ImageToolClient.tsx](components/ImageToolClient.tsx):客户端处理组件(接收 `tool` 数据)。
+- [lib/site.ts](lib/site.ts) / [lib/seo.ts](lib/seo.ts):站点配置与 JSON-LD。
+- [scripts/verify.mjs](scripts/verify.mjs):无头浏览器验证。
+
+## 新增一个工具
+1. 在 `lib/tools.ts` 的 `TOOLS` 加一个定义。
+2. 新建 `app/<slug>/page.tsx`(照抄现有 4 行模板)。
+3. `node scripts/verify.mjs` 验证 → 提交(自动部署)。
+
+## 变现
+`<AdSlot>` 广告位:配置 `NEXT_PUBLIC_ADSENSE_PUBLISHER_ID` 后自动启用。
