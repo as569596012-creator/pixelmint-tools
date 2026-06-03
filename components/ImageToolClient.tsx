@@ -14,6 +14,9 @@ interface WorkItem {
   resultSize?: number;
   resultName?: string;
   error?: string;
+  // resize 模式下记录原始尺寸
+  naturalWidth?: number;
+  naturalHeight?: number;
 }
 
 function formatBytes(bytes: number): string {
@@ -67,6 +70,57 @@ async function reencodeWithCanvas(
   }
 }
 
+// resize 模式：缩放到指定宽高，PNG 输出 PNG，其余输出 JPG
+async function resizeWithCanvas(
+  source: Blob,
+  targetW: number,
+  targetH: number,
+): Promise<{ blob: Blob; ext: string }> {
+  const url = URL.createObjectURL(source);
+  try {
+    const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const el = new Image();
+      el.onload = () => resolve(el);
+      el.onerror = () => reject(new Error("Could not read image"));
+      el.src = url;
+    });
+    const canvas = document.createElement("canvas");
+    canvas.width = targetW;
+    canvas.height = targetH;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) throw new Error("Canvas not supported in this browser");
+    const isPng = source.type === "image/png";
+    const outMime = isPng ? "image/png" : "image/jpeg";
+    if (!isPng) {
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, targetW, targetH);
+    }
+    ctx.drawImage(img, 0, 0, targetW, targetH);
+    const blob = await new Promise<Blob | null>((resolve) =>
+      canvas.toBlob((b) => resolve(b), outMime, 0.9),
+    );
+    if (!blob) throw new Error("This browser could not encode the image");
+    return { blob, ext: isPng ? "png" : "jpg" };
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
+
+// 加载图片获取原始尺寸
+async function getNaturalSize(file: File): Promise<{ w: number; h: number }> {
+  const url = URL.createObjectURL(file);
+  try {
+    return await new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve({ w: img.naturalWidth, h: img.naturalHeight });
+      img.onerror = () => reject(new Error("Could not read image"));
+      img.src = url;
+    });
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
+
 export default function ImageToolClient({ tool }: { tool: ToolDef }) {
   const { config } = tool;
   const [items, setItems] = useState<WorkItem[]>([]);
@@ -75,20 +129,51 @@ export default function ImageToolClient({ tool }: { tool: ToolDef }) {
   const [useTarget, setUseTarget] = useState<boolean>(false);
   const [busy, setBusy] = useState<boolean>(false);
   const [dragOver, setDragOver] = useState<boolean>(false);
+
+  // resize 模式状态
+  const [resizeWidth, setResizeWidth] = useState<number>(config.defaultWidthPx ?? 1280);
+  const [resizeHeight, setResizeHeight] = useState<number>(720);
+  const [lockAspect, setLockAspect] = useState<boolean>(config.maintainAspectRatio ?? true);
+  // 第一张图的宽高比，用于等比计算
+  const aspectRatioRef = useRef<number | null>(null);
+
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const addFiles = useCallback((fileList: FileList | null) => {
-    if (!fileList || fileList.length === 0) return;
-    const next: WorkItem[] = Array.from(fileList)
-      .filter((f) => f.type.startsWith("image/") || isHeic(f))
-      .map((f) => ({
+  const addFiles = useCallback(
+    async (fileList: FileList | null) => {
+      if (!fileList || fileList.length === 0) return;
+      const filtered = Array.from(fileList).filter(
+        (f) => f.type.startsWith("image/") || isHeic(f),
+      );
+      if (filtered.length === 0) return;
+
+      const next: WorkItem[] = filtered.map((f) => ({
         id: `${f.name}-${f.size}-${Math.random().toString(36).slice(2)}`,
         file: f,
         originalSize: f.size,
         status: "ready" as const,
       }));
-    setItems((prev) => [...prev, ...next]);
-  }, []);
+      setItems((prev) => [...prev, ...next]);
+
+      // resize 模式：加载第一张图的尺寸来初始化高度
+      if (config.mode === "resize" && aspectRatioRef.current === null) {
+        try {
+          const { w, h } = await getNaturalSize(filtered[0]);
+          aspectRatioRef.current = w / h;
+          setResizeHeight(Math.round(resizeWidth / (w / h)));
+          // 更新 item 里存储尺寸
+          setItems((prev) =>
+            prev.map((it) =>
+              it.file === filtered[0] ? { ...it, naturalWidth: w, naturalHeight: h } : it,
+            ),
+          );
+        } catch {
+          // ignore
+        }
+      }
+    },
+    [config.mode, resizeWidth],
+  );
 
   const processOne = useCallback(
     async (item: WorkItem): Promise<WorkItem> => {
@@ -96,7 +181,15 @@ export default function ImageToolClient({ tool }: { tool: ToolDef }) {
         let blob: Blob;
         let outName = item.file.name;
 
-        if (config.mode === "convert") {
+        if (config.mode === "resize") {
+          const { blob: resized, ext } = await resizeWithCanvas(
+            item.file,
+            resizeWidth,
+            resizeHeight,
+          );
+          blob = resized;
+          outName = changeExt(item.file.name, ext);
+        } else if (config.mode === "convert") {
           const mime = config.outputMime ?? "image/jpeg";
           if (config.acceptHeic && isHeic(item.file)) {
             const heic2any = (await import("heic2any")).default as (opts: {
@@ -146,7 +239,7 @@ export default function ImageToolClient({ tool }: { tool: ToolDef }) {
         };
       }
     },
-    [config, quality, targetKb, useTarget],
+    [config, quality, targetKb, useTarget, resizeWidth, resizeHeight],
   );
 
   const run = useCallback(async () => {
@@ -182,8 +275,29 @@ export default function ImageToolClient({ tool }: { tool: ToolDef }) {
   const reset = useCallback(() => {
     items.forEach((it) => it.resultUrl && URL.revokeObjectURL(it.resultUrl));
     setItems([]);
+    aspectRatioRef.current = null;
     if (inputRef.current) inputRef.current.value = "";
   }, [items]);
+
+  const handleWidthChange = useCallback(
+    (val: number) => {
+      setResizeWidth(val);
+      if (lockAspect && aspectRatioRef.current) {
+        setResizeHeight(Math.round(val / aspectRatioRef.current));
+      }
+    },
+    [lockAspect],
+  );
+
+  const handleHeightChange = useCallback(
+    (val: number) => {
+      setResizeHeight(val);
+      if (lockAspect && aspectRatioRef.current) {
+        setResizeWidth(Math.round(val * aspectRatioRef.current));
+      }
+    },
+    [lockAspect],
+  );
 
   const doneCount = items.filter((it) => it.status === "done").length;
 
@@ -227,7 +341,41 @@ export default function ImageToolClient({ tool }: { tool: ToolDef }) {
       </div>
 
       {/* 选项 */}
-      <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        {config.mode === "resize" && (
+          <div className="flex flex-wrap items-center gap-3 text-sm text-gray-700">
+            <span className="font-medium">Width</span>
+            <input
+              type="number"
+              min={1}
+              max={10000}
+              value={resizeWidth}
+              onChange={(e) => handleWidthChange(Number(e.target.value))}
+              className="w-24 rounded-md border border-gray-300 px-2 py-1 tabular-nums"
+            />
+            <span className="text-gray-400">px</span>
+            <span className="font-medium">Height</span>
+            <input
+              type="number"
+              min={1}
+              max={10000}
+              value={resizeHeight}
+              onChange={(e) => handleHeightChange(Number(e.target.value))}
+              className="w-24 rounded-md border border-gray-300 px-2 py-1 tabular-nums"
+            />
+            <span className="text-gray-400">px</span>
+            <label className="flex cursor-pointer items-center gap-1.5">
+              <input
+                type="checkbox"
+                checked={lockAspect}
+                onChange={(e) => setLockAspect(e.target.checked)}
+                className="h-4 w-4 accent-mint-600"
+              />
+              <span>Lock ratio</span>
+            </label>
+          </div>
+        )}
+
         {config.showQuality && (
           <label className="flex items-center gap-3 text-sm text-gray-700">
             <span className="font-medium">Quality</span>
@@ -272,7 +420,13 @@ export default function ImageToolClient({ tool }: { tool: ToolDef }) {
           disabled={items.length === 0 || busy}
           className="rounded-lg bg-mint-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-mint-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {busy ? "Working…" : config.mode === "compress" ? "Compress" : "Convert"}
+          {busy
+            ? "Working…"
+            : config.mode === "compress"
+              ? "Compress"
+              : config.mode === "resize"
+                ? "Resize"
+                : "Convert"}
         </button>
         {doneCount > 1 && (
           <button

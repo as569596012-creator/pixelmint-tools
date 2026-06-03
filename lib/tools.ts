@@ -1,6 +1,6 @@
 // 工具注册表:首页列表、每个工具页、sitemap、内链都从这里读取,新增工具只改这一处。
 
-export type ToolMode = "compress" | "convert";
+export type ToolMode = "compress" | "convert" | "resize";
 
 export interface FaqItem {
   q: string;
@@ -31,9 +31,22 @@ export interface ToolDef {
     showQuality: boolean; // 是否显示质量滑块
     defaultQuality: number; // 0-100
     showTargetSize: boolean; // 是否显示"目标 KB"(仅压缩)
+    // resize 模式专属
+    defaultWidthPx?: number; // 默认宽度(像素)
+    maintainAspectRatio?: boolean; // 是否默认锁定宽高比
   };
 }
 
+// 按使用频率从高到低排列:
+// 1 image-compressor  — 最高搜索量
+// 2 heic-to-jpg       — iPhone 用户基数大
+// 3 image-resizer     — 压缩前先缩尺寸，强相关需求
+// 4 png-to-jpg        — 极常见
+// 5 image-to-webp     — 网页开发者
+// 6 jpg-to-png        — 中等
+// 7 webp-to-jpg       — 中等
+// 8 gif-to-jpg        — 中等
+// 9 bmp-to-jpg        — 较小众
 export const TOOLS: ToolDef[] = [
   {
     slug: "image-compressor",
@@ -149,6 +162,63 @@ export const TOOLS: ToolDef[] = [
       showQuality: true,
       defaultQuality: 90,
       showTargetSize: false,
+    },
+  },
+  {
+    slug: "image-resizer",
+    name: "Image Resizer",
+    emoji: "📐",
+    title: "Resize Image Online Free — No Upload, Pixel-Perfect Output | PicCrush",
+    metaDescription:
+      "Resize JPG, PNG and WebP images to any width or height free in your browser. Lock aspect ratio, no upload, no sign-up, no watermark.",
+    h1: "Resize Image Online Free — No Upload",
+    intro: "Scale images to any width or height instantly. Lock the aspect ratio to avoid stretching — everything runs in your browser.",
+    keywords: [
+      "resize image online free",
+      "resize image to specific size",
+      "image resizer no upload",
+      "resize photo online free",
+      "resize jpg online",
+      "resize png online free",
+      "reduce image dimensions",
+    ],
+    howTo: [
+      "Drop or select one or more images (JPG, PNG, WebP).",
+      "Enter the target width in pixels — height updates automatically if aspect ratio is locked.",
+      "Unlock the ratio to set a custom height, then click Resize and download.",
+    ],
+    body: "Resizing an image before compressing it is the most effective way to shrink file size — halving the dimensions reduces the pixel count (and file size) by up to 75%. This resizer scales images using the browser's Canvas API, so nothing leaves your device. You can resize by width, height, or both. The lock-aspect-ratio option prevents unwanted stretching. Output is saved as JPG for photos and PNG for PNG inputs. Pair it with the Image Compressor to hit a specific file-size target.",
+    faq: [
+      {
+        q: "How do I resize an image without distorting it?",
+        a: "Enable the 'Lock aspect ratio' toggle. Enter only the width — the height is calculated automatically to keep the original proportions.",
+      },
+      {
+        q: "What is the best way to reduce image file size?",
+        a: "First resize the image to the dimensions you actually need, then compress it. Reducing a 4000 px photo to 1200 px before compressing gives far smaller files than compression alone.",
+      },
+      {
+        q: "Does resizing reduce image quality?",
+        a: "Downscaling (making the image smaller) looks excellent because the browser averages nearby pixels. Upscaling (making it larger) will look blurry because no new detail is added.",
+      },
+      {
+        q: "What output format will I get?",
+        a: "PNG inputs are saved as PNG; all other formats (JPG, WebP, GIF, BMP) are saved as JPG at quality 90.",
+      },
+      {
+        q: "Can I resize multiple images at once?",
+        a: "Yes — drop several files and they will all be resized to the same target dimensions. Download them individually or all at once.",
+      },
+    ],
+    config: {
+      mode: "resize",
+      accept: "image/jpeg,image/png,image/webp,image/gif,image/bmp",
+      acceptHeic: false,
+      showQuality: false,
+      defaultQuality: 90,
+      showTargetSize: false,
+      defaultWidthPx: 1280,
+      maintainAspectRatio: true,
     },
   },
   {
