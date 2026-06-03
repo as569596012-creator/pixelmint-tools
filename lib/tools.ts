@@ -255,6 +255,215 @@ export const TOOLS: ToolDef[] = [
       showTargetSize: false,
     },
   },
+  {
+    slug: "jpg-to-png",
+    name: "JPG to PNG",
+    emoji: "🔄",
+    title: "JPG to PNG Converter — Free Online, No Upload, Lossless Output",
+    metaDescription:
+      "Convert JPG to PNG free in your browser — no upload, no sign-up, no watermark. Get lossless PNG output with full transparency support.",
+    h1: "Convert JPG to PNG Free — No Upload",
+    intro: "Turn JPG images into lossless PNG files instantly. Runs in your browser — nothing is uploaded to any server.",
+    keywords: [
+      "jpg to png",
+      "convert jpg to png free",
+      "jpg to png online",
+      "jpg to png converter",
+      "jpeg to png free",
+      "jpg to png no upload",
+      "convert jpeg to png online",
+    ],
+    howTo: [
+      "Select one or more JPG or WebP images.",
+      "Adjust quality if needed (PNG output is lossless; quality affects intermediate decoding).",
+      "Click Convert and download your PNG files.",
+    ],
+    body: "PNG is a lossless format ideal for screenshots, graphics, logos and images that need a transparent background. This tool re-encodes your JPG or WebP images to PNG entirely in your browser using the Canvas API — no files leave your device. The output PNG retains the full resolution and color of the original. Because PNG is lossless it is usually larger than JPG; if you need a smaller file for the web, consider using our Image to WebP converter instead.",
+    faq: [
+      {
+        q: "Why convert JPG to PNG?",
+        a: "PNG supports transparency and is lossless, making it better for graphics, logos, and images you plan to edit further. JPG uses lossy compression that degrades quality on each re-save.",
+      },
+      {
+        q: "Will my JPG image have a transparent background after converting to PNG?",
+        a: "No — JPG doesn't store transparency data, so the converted PNG will have the same opaque background as the original JPG.",
+      },
+      {
+        q: "Is PNG or JPG better for photos?",
+        a: "JPG is usually better for photos because it produces much smaller files. Use PNG for screenshots, graphics, logos, or images with sharp edges and flat colors.",
+      },
+      {
+        q: "Can I convert JPG to PNG without losing quality?",
+        a: "Yes — PNG is lossless, so the conversion preserves all detail from the original JPG. No further quality is lost in the PNG encoding step.",
+      },
+    ],
+    config: {
+      mode: "convert",
+      accept: "image/jpeg,image/webp",
+      acceptHeic: false,
+      outputMime: "image/png",
+      outputExt: "png",
+      showQuality: false,
+      defaultQuality: 100,
+      showTargetSize: false,
+    },
+  },
+  {
+    slug: "webp-to-jpg",
+    name: "WebP to JPG",
+    emoji: "↩️",
+    title: "WebP to JPG Converter — Free Online, No Upload, No Sign-up",
+    metaDescription:
+      "Convert WebP images to JPG free in your browser — no upload, no sign-up, no watermark. Works instantly on any device.",
+    h1: "Convert WebP to JPG Free — No Upload",
+    intro: "Convert WebP images back to universally compatible JPG files instantly. Runs entirely in your browser — nothing is uploaded.",
+    keywords: [
+      "webp to jpg",
+      "convert webp to jpg free",
+      "webp to jpg online",
+      "webp to jpeg converter",
+      "webp to jpg no upload",
+      "webp to jpg converter online free",
+    ],
+    howTo: [
+      "Select one or more WebP images.",
+      "Set the JPG output quality (85 gives a great balance of size and sharpness).",
+      "Click Convert and download your JPG files.",
+    ],
+    body: "WebP is a modern web format but not every app, platform or printer accepts it yet. This converter re-encodes WebP images to universally compatible JPG entirely in your browser using the Canvas API — your files are never uploaded. Transparent areas in WebP images are composited on a white background since JPG does not support transparency. If you need to share photos with someone who can't open WebP, or upload to a platform that requires JPG, this tool is the fastest solution.",
+    faq: [
+      {
+        q: "Why do I need to convert WebP to JPG?",
+        a: "Some older apps, email clients, social platforms, and print services don't accept WebP. Converting to JPG ensures universal compatibility.",
+      },
+      {
+        q: "Will converting WebP to JPG reduce quality?",
+        a: "JPG is a lossy format. At quality 85–95 the visual difference is minimal, but you will lose the small file-size advantage that WebP offers.",
+      },
+      {
+        q: "What happens to transparent areas in a WebP file?",
+        a: "JPG does not support transparency, so any transparent pixels are filled with a white background during conversion.",
+      },
+      {
+        q: "How do I convert WebP to JPG on iPhone or Android?",
+        a: "Open this page in your mobile browser, pick your WebP file, and download the JPG. No app install needed.",
+      },
+    ],
+    config: {
+      mode: "convert",
+      accept: "image/webp",
+      acceptHeic: false,
+      outputMime: "image/jpeg",
+      outputExt: "jpg",
+      showQuality: true,
+      defaultQuality: 85,
+      showTargetSize: false,
+    },
+  },
+  {
+    slug: "gif-to-jpg",
+    name: "GIF to JPG",
+    emoji: "🎞️",
+    title: "GIF to JPG Converter — Free Online, No Upload, No Sign-up",
+    metaDescription:
+      "Convert GIF images to JPG free in your browser — no upload, no sign-up. Reduces file size dramatically. Works on static and animated GIFs.",
+    h1: "Convert GIF to JPG Free — No Upload",
+    intro: "Convert GIF images to compact JPG files in seconds. Runs entirely in your browser — your files are never uploaded.",
+    keywords: [
+      "gif to jpg",
+      "convert gif to jpg free",
+      "gif to jpg online",
+      "gif to jpeg converter",
+      "gif to jpg no upload",
+      "convert gif to jpeg free online",
+    ],
+    howTo: [
+      "Select one or more GIF images.",
+      "Set the JPG quality (80 is a great default for photos).",
+      "Click Convert and download your JPG files.",
+    ],
+    body: "GIF files can be surprisingly large, especially when they contain photographic content. Converting a static GIF to JPG typically reduces the file size by 50–80% while preserving full visual quality. This tool converts GIFs to JPG entirely in your browser using the Canvas API — nothing is uploaded. For animated GIFs only the first frame is captured. The result is a standard JPG accepted everywhere — great for forms, email attachments, and web uploads that reject GIF.",
+    faq: [
+      {
+        q: "Can I convert an animated GIF to JPG?",
+        a: "Yes, but only the first frame of the animation is saved as the JPG. If you need all frames, you would need a dedicated GIF splitter tool first.",
+      },
+      {
+        q: "Why is my GIF so much larger than the JPG?",
+        a: "GIF uses lossless LZW compression limited to 256 colors, which makes it inefficient for photos. JPG is optimized for photographic content and compresses much more effectively.",
+      },
+      {
+        q: "What happens to transparent areas in a GIF?",
+        a: "GIF supports 1-bit transparency. Transparent pixels will be filled with a white background in the JPG output.",
+      },
+      {
+        q: "How do I reduce the size of a GIF?",
+        a: "The fastest way is to convert it to JPG (for photos) or WebP (for animation-friendly format). Both produce much smaller files than GIF.",
+      },
+    ],
+    config: {
+      mode: "convert",
+      accept: "image/gif",
+      acceptHeic: false,
+      outputMime: "image/jpeg",
+      outputExt: "jpg",
+      showQuality: true,
+      defaultQuality: 80,
+      showTargetSize: false,
+    },
+  },
+  {
+    slug: "bmp-to-jpg",
+    name: "BMP to JPG",
+    emoji: "🖨️",
+    title: "BMP to JPG Converter — Free Online, No Upload, No Sign-up",
+    metaDescription:
+      "Convert BMP images to JPG free in your browser — no upload, no sign-up. Shrink huge BMP files by up to 95% instantly.",
+    h1: "Convert BMP to JPG Free — No Upload",
+    intro: "Shrink oversized BMP files into compact JPG images instantly. Runs entirely in your browser — nothing is uploaded.",
+    keywords: [
+      "bmp to jpg",
+      "convert bmp to jpg free",
+      "bmp to jpg online",
+      "bmp to jpeg converter",
+      "bmp to jpg no upload",
+      "convert bmp to jpeg free online",
+    ],
+    howTo: [
+      "Select one or more BMP images.",
+      "Set the JPG quality (85 keeps photos sharp while cutting size drastically).",
+      "Click Convert and download your compact JPG files.",
+    ],
+    body: "BMP (Bitmap) is an uncompressed format originally from Windows Paint — a 10 MB BMP photo can shrink to under 500 KB as a JPG with no visible quality loss. This converter processes BMP files entirely in your browser using the Canvas API, so nothing is uploaded. It's ideal for scanned documents, screenshots from older Windows software, and files exported from CAD or medical imaging tools. The resulting JPG is universally compatible and ready for email, web upload or printing.",
+    faq: [
+      {
+        q: "Why are BMP files so large?",
+        a: "BMP stores every pixel as raw, uncompressed data. A 3000×2000 BMP takes about 17 MB; the equivalent JPG is typically under 1 MB.",
+      },
+      {
+        q: "How much smaller will my file be after converting BMP to JPG?",
+        a: "Typically 90–95% smaller. A 10 MB BMP often converts to a 300–600 KB JPG at quality 85 with no visible quality difference.",
+      },
+      {
+        q: "Is BMP or JPG better for printing?",
+        a: "For printing, both produce similar results, but JPG is far easier to share and upload. Use JPG at quality 90+ for print-quality output.",
+      },
+      {
+        q: "Can I convert multiple BMP files at once?",
+        a: "Yes — select multiple BMP files at once and download them all individually or use the 'Download all' button.",
+      },
+    ],
+    config: {
+      mode: "convert",
+      accept: "image/bmp",
+      acceptHeic: false,
+      outputMime: "image/jpeg",
+      outputExt: "jpg",
+      showQuality: true,
+      defaultQuality: 85,
+      showTargetSize: false,
+    },
+  },
 ];
 
 export function getTool(slug: string): ToolDef | undefined {
