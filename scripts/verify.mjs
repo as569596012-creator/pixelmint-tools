@@ -69,7 +69,7 @@ function startServer() {
 
 const ROUTES = [
   { path: "/", h1Includes: "Image Tools" },
-  { path: "/image-compressor/", h1Includes: "Image Compressor" },
+  { path: "/image-compressor/", h1Includes: "Compress Image" },
   { path: "/heic-to-jpg/", h1Includes: "HEIC to JPG" },
   { path: "/png-to-jpg/", h1Includes: "PNG to JPG" },
   { path: "/image-to-webp/", h1Includes: "WebP" },

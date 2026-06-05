@@ -18,6 +18,9 @@ export default function Header() {
               {t.name}
             </Link>
           ))}
+          <Link href="/guides/" className="hover:text-mint-700">
+            Guides
+          </Link>
         </nav>
       </div>
     </header>
